@@ -1,0 +1,16 @@
+{
+  "name": "cookbook-recipe-copier-ext",
+  "version": "0.0.1",
+  "description": "Copy a recipe from a URL andpaste into Create My Cookbook",
+  "scripts": {
+    "dev": "webextension-toolbox dev",
+    "build": "webextension-toolbox build"
+  },
+  "devDependencies": {
+    "standard": "^16.0.3",
+    "webextension-toolbox": "latest"
+  },
+  "dependencies": {
+    "lodash": "^4.17.20"
+  }
+}
