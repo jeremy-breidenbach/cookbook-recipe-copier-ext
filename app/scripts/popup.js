@@ -10,11 +10,30 @@ class App extends React.Component {
     super(props)
     this.state = {
       url: '',
-      isLoading: false
+      isLoading: false,
+      shouldDownloadImage: false,
+      shouldPasteAuthor: false,
+      shouldPasteNutrition: false,
+      shouldPasteUrl: false
     }
 
     this.handleUrlChange = this.handleUrlChange.bind(this)
     this.handleSubmitClick = this.handleSubmitClick.bind(this)
+  }
+
+  componentDidMount () {
+    chrome.storage.sync.get([ // eslint-disable-line no-undef
+      'shouldDownloadImage',
+      'shouldPasteAuthor',
+      'shouldPasteNutrition',
+      'shouldPasteUrl'], (items) => {
+      this.setState({
+        shouldDownloadImage: items.shouldDownloadImage,
+        shouldPasteAuthor: items.shouldPasteAuthor,
+        shouldPasteNutrition: items.shouldPasteNutrition,
+        shouldPasteUrl: items.shouldPasteUrl
+      })
+    })
   }
 
   handleUrlChange (event) {
@@ -28,10 +47,19 @@ class App extends React.Component {
     fetch(`${apiServerUrl}?url=${this.state.url}`) // eslint-disable-line no-undef
       .then(response => response.json())
       .then(data => {
+        const request = {
+          data: data,
+          options: {
+            shouldDownloadImage: this.state.shouldDownloadImage,
+            shouldPasteAuthor: this.state.shouldPasteAuthor,
+            shouldPasteNutrition: this.state.shouldPasteNutrition,
+            shouldPasteUrl: this.state.shouldPasteUrl
+          }
+        }
         /* eslint-disable no-undef */
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-          chrome.tabs.sendMessage(tabs[0].id, data, function (response) {
-            console.log(response.farewell)
+          chrome.tabs.sendMessage(tabs[0].id, request, function (response) {
+            console.log(response.status)
             window.close()
           })
         })

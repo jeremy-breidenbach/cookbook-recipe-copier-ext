@@ -42,6 +42,10 @@ class App extends React.Component {
     })
   }
 
+  handleCancelClick () {
+    window.close()
+  }
+
   handleSave (event) {
     chrome.storage.sync.set({ // eslint-disable-line no-undef
       shouldDownloadImage: this.state.shouldDownloadImage,
@@ -86,9 +90,12 @@ class App extends React.Component {
             </label>
           </div>
         </div>
-        <div className='field'>
+        <div className='field is-grouped'>
           <div className='control'>
             <button id='save' className='button is-link' onClick={this.handleSave}>Save Options</button>
+          </div>
+          <div className='control'>
+            <button className='button is-link is-light' onClick={this.handleCancelClick}>Cancel</button>
           </div>
         </div>
       </div>
