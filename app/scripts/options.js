@@ -14,6 +14,22 @@ class App extends React.Component {
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleSave = this.handleSave.bind(this)
+  }
+
+  componentDidMount () {
+    chrome.storage.sync.get([ // eslint-disable-line no-undef
+      'shouldDownloadImage',
+      'shouldPasteAuthor',
+      'shouldPasteNutrition',
+      'shouldPasteUrl'], (items) => {
+      this.setState({
+        shouldDownloadImage: items.shouldDownloadImage,
+        shouldPasteAuthor: items.shouldPasteAuthor,
+        shouldPasteNutrition: items.shouldPasteNutrition,
+        shouldPasteUrl: items.shouldPasteUrl
+      })
+    })
   }
 
   handleInputChange (event) {
@@ -23,6 +39,18 @@ class App extends React.Component {
 
     this.setState({
       [name]: value
+    })
+  }
+
+  handleSave (event) {
+    chrome.storage.sync.set({ // eslint-disable-line no-undef
+      shouldDownloadImage: this.state.shouldDownloadImage,
+      shouldPasteAuthor: this.state.shouldPasteAuthor,
+      shouldPasteNutrition: this.state.shouldPasteNutrition,
+      shouldPasteUrl: this.state.shouldPasteUrl
+    }, function () {
+      console.log('Options saved to Chrome storage')
+      window.close()
     })
   }
 
@@ -60,7 +88,7 @@ class App extends React.Component {
         </div>
         <div className='field'>
           <div className='control'>
-            <button id='submit' className='button is-link'>Save</button>
+            <button id='save' className='button is-link' onClick={this.handleSave}>Save Options</button>
           </div>
         </div>
       </div>
