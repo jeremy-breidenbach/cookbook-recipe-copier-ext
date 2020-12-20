@@ -64,6 +64,13 @@ class App extends React.Component {
           })
         })
         /* eslint-enable no-undef */
+
+        if (this.state.shouldDownloadImage) {
+          chrome.downloads.download({ // eslint-disable-line no-undef
+            url: data.image,
+            filename: `${data.name}.jpg`
+          })
+        }
       })
   }
 
