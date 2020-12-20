@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import _ from 'lodash'
 
 console.log('Logged from popup')
 
@@ -67,7 +68,7 @@ class App extends React.Component {
 
         if (this.state.shouldDownloadImage) {
           chrome.downloads.download({ // eslint-disable-line no-undef
-            url: data.image,
+            url: _.isArray(data.image) ? data.image[0] : data.image,
             filename: `${data.name}.jpg`
           })
         }
