@@ -2,11 +2,12 @@
 
 Copy a recipe from a URL and paste into Create My Cookbook
 
-https://recipe-parser.azurewebsites.net/api/parse?url=https://www.allrecipes.com/recipe/230857/easy-tuna-patties/
+## Overview
+This Chrome extension makes use of a publicly available API [Recipe scraper server](https://recipe-parser.azurewebsites.net/api) to scrape a recipe for a given URL and paste the recipe into the [CreateMyCookbook.com](https://createmycookbook.com/home) recipe form.
 
-https://www.allrecipes.com/recipe/230857/easy-tuna-patties/
+This extension was built with webextension-toolbox, React, Lodash, and Bulma CSS.
 
-## Install
+## Installing extension packages
 
 	$ npm install
 
@@ -17,7 +18,9 @@ https://www.allrecipes.com/recipe/230857/easy-tuna-patties/
     npm run dev opera
     npm run dev edge
 
-## Build
+Standard JS is used as a dev dependency for code linting.
+
+## Building the extension
 
     npm run build chrome
     npm run build firefox
@@ -42,7 +45,6 @@ The build tool also defines a variable named `process.env.NODE_ENV` in your scri
 
 >Apps, games, desktop apps, etc
 >>Paste this link on the website where your app is available for download or in the description section of the platform or marketplace you’re using.
-
 
 
 ```
