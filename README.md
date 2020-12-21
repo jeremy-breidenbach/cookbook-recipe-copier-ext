@@ -35,3 +35,16 @@ The build tool also defines a variable named `process.env.NODE_ENV` in your scri
 ## Helpful Articles
 * [Stack Overflow answer detailing how to update Angular](https://stackoverflow.com/a/9517879)
 * [Stack Overflow answer on updating Angular value](https://stackoverflow.com/a/43969802)
+
+## Icon
+* Sourced from [flaticon](https://www.flaticon.com/free-icons/cookbook#)
+* Attribution is required, their docs state the following: 
+
+>Apps, games, desktop apps, etc
+>>Paste this link on the website where your app is available for download or in the description section of the platform or marketplace you’re using.
+
+
+
+```
+<div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+```
