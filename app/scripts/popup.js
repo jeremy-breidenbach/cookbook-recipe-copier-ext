@@ -45,6 +45,7 @@ class App extends React.Component {
 
   handleSubmitClick (event) {
     event.preventDefault()
+    this.setState({ isLoading: true })
     fetch(`${apiServerUrl}?url=${this.state.url}`) // eslint-disable-line no-undef
       .then(response => response.json())
       .then(data => {
@@ -86,7 +87,7 @@ class App extends React.Component {
         </div>
         <div className='field'>
           <div className='control'>
-            <button id='submit' className='button is-link' onClick={this.handleSubmitClick}>Copy Recipe</button>
+            <button id='submit' className={`button is-link ${this.state.isLoading ? 'is-loading' : ''}`} onClick={this.handleSubmitClick}>Copy Recipe</button>
           </div>
         </div>
       </div>
