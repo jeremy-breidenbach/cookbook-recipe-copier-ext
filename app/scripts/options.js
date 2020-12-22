@@ -79,14 +79,14 @@ class App extends React.Component {
         <div className='field'>
           <div className='control'>
             <label className='checkbox' htmlFor='shouldPasteNutrition'>
-              <input id='shouldPasteNutrition' type='checkbox' name='shouldPasteNutrition' checked={this.state.shouldPasteNutrition} onChange={this.handleInputChange} /> Paste Nutrition into Recipe
+              <input id='shouldPasteNutrition' type='checkbox' name='shouldPasteNutrition' checked={this.state.shouldPasteNutrition} onChange={this.handleInputChange} /> Paste Nutrition into Recipe Notes
             </label>
           </div>
         </div>
         <div className='field'>
           <div className='control'>
             <label className='checkbox' htmlFor='shouldPasteUrl'>
-              <input id='shouldPasteUrl' type='checkbox' name='shouldPasteUrl' checked={this.state.shouldPasteUrl} onChange={this.handleInputChange} /> Paste URL into Recipe
+              <input id='shouldPasteUrl' type='checkbox' name='shouldPasteUrl' checked={this.state.shouldPasteUrl} onChange={this.handleInputChange} /> Paste URL into Recipe Notes
             </label>
           </div>
         </div>
