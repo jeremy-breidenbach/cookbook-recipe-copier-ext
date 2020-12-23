@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import isUrl from 'validator/lib/isURL'
 import _ from 'lodash'
 
 console.log('Logged from popup')
@@ -10,16 +12,11 @@ class App extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      url: '',
-      isLoading: false,
       shouldDownloadImage: false,
       shouldPasteAuthor: false,
       shouldPasteNutrition: false,
       shouldPasteUrl: false
     }
-
-    this.handleUrlChange = this.handleUrlChange.bind(this)
-    this.handleSubmitClick = this.handleSubmitClick.bind(this)
   }
 
   componentDidMount () {
@@ -37,16 +34,8 @@ class App extends React.Component {
     })
   }
 
-  handleUrlChange (event) {
-    this.setState({
-      url: event.target.value
-    })
-  }
-
-  handleSubmitClick (event) {
-    event.preventDefault()
-    this.setState({ isLoading: true })
-    fetch(`${apiServerUrl}?url=${this.state.url}`) // eslint-disable-line no-undef
+  handleSubmit (values) {
+    fetch(`${apiServerUrl}?url=${values.url}`) // eslint-disable-line no-undef
       .then(response => response.json())
       .then(data => {
         const request = {
@@ -80,16 +69,43 @@ class App extends React.Component {
     return (
       <div className='column is-full'>
         <h4 className='title is-4'>Cookbook Recipe Copier</h4>
-        <div className='field'>
-          <div className='control'>
-            <input type='text' className='input' name='url' id='url' value={this.state.url} onChange={this.handleUrlChange} placeholder='Recipe URL' />
-          </div>
-        </div>
-        <div className='field'>
-          <div className='control'>
-            <button id='submit' className={`button is-link ${this.state.isLoading ? 'is-loading' : ''}`} onClick={this.handleSubmitClick}>Copy Recipe</button>
-          </div>
-        </div>
+        <Formik
+          initialValues={{ url: '' }}
+          validate={values => {
+            const errors = {}
+            if (!values.url) {
+              errors.url = 'Recipe URL is required'
+            } else if (
+              !isUrl(values.url)
+            ) {
+              errors.url = 'Recipe URL is invalid'
+            }
+            return errors
+          }}
+          onSubmit={(values, { setSubmitting }) => {
+            this.handleSubmit(values)
+          }}
+        >
+          {({ isSubmitting }) => (
+            <Form>
+              <div className='field'>
+                <div className='control'>
+                  <Field name='url'>
+                    {({ field, form, meta }) => (
+                      <input type='url' {...field} className={`input ${meta.touched && meta.error ? 'is-danger' : ''}`} id='url' placeholder='Recipe URL' />
+                    )}
+                  </Field>
+                </div>
+                <ErrorMessage name='url' component='p' className='help is-danger' />
+              </div>
+              <div className='field'>
+                <div className='control'>
+                  <button id='submit' type='submit' className={`button is-link ${isSubmitting ? 'is-loading' : ''}`}>Copy Recipe</button>
+                </div>
+              </div>
+            </Form>
+          )}
+        </Formik>
       </div>
     )
   }
