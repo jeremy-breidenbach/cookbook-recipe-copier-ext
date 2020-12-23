@@ -35,6 +35,9 @@ The build tool also defines a variable named `process.env.NODE_ENV` in your scri
 
 * [webextension-toolbox](https://github.com/HaNdTriX/webextension-toolbox)
 
+## Recipe Parser API
+https://github.com/boonepeter/recipe-parser
+
 ## Helpful Articles
 * [Stack Overflow answer detailing how to update Angular](https://stackoverflow.com/a/9517879)
 * [Stack Overflow answer on updating Angular value](https://stackoverflow.com/a/43969802)
